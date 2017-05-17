@@ -61,11 +61,11 @@ export default {
         .do(() => { this.err = '' })
         .do(() => { this.loading = true })
         .do(({ q }) => { this.title = q })
-        .flatMap(({ q, page }) => API.search(q, page))
-        .catch((err) => {
-          this.error = err.message || 'something went wrong :P'
-          return Observable.of(null)
-        })
+        .flatMap(({ q, page }) => API.search(q, page)
+          .catch((err) => {
+            this.error = err.message || 'something went wrong :P'
+            return Observable.of(null)
+          }))
         .do(() => { this.loading = false })
     }
   },
