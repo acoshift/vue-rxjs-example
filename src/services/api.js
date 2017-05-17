@@ -10,5 +10,6 @@ const http = axios.create({
 const get = (url, config) => Observable
   .fromPromise(http.get(url, config))
   .map((resp) => resp.data)
+  .catch((err) => Observable.throw(err.response.data))
 
 export const search = (q, page) => get('/search/repositories', { params: { q, sort: 'stars', page } })

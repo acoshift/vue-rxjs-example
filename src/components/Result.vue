@@ -6,6 +6,7 @@
     <h5 v-if="data && !loading">
       <a class="button" @click="back">Back</a> {{ page }} / {{ totalPage }} <a class="button" @click="next">Next</a>
     </h5>
+    <p v-if="error">{{ error }}</p>
     <table class="u-full-width" v-if="data && !loading">
       <thead>
         <tr>
@@ -39,7 +40,8 @@ export default {
       title: '',
       typing: false,
       loading: false,
-      page: 1
+      page: 1,
+      error: ''
     }
   },
   subscriptions () {
@@ -56,9 +58,14 @@ export default {
 
     return {
       data: Observable.combineLatest($q, $page, (q, page) => ({ q, page }))
+        .do(() => { this.err = '' })
         .do(() => { this.loading = true })
         .do(({ q }) => { this.title = q })
         .flatMap(({ q, page }) => API.search(q, page))
+        .catch((err) => {
+          this.error = err.message || 'something went wrong :P'
+          return Observable.of(null)
+        })
         .do(() => { this.loading = false })
     }
   },
