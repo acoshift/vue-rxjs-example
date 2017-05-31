@@ -2,6 +2,12 @@
 
 > Vue.js + RxJS + VueRx example
 
+See this example at [https://vuejs-rxjs-example.firebaseapp.com](https://vuejs-rxjs-example.firebaseapp.com)
+
+## Detail
+
+This example shows how to use Vue.js 2 with Rx.js and VueRx to make github simple search with pagination web application.
+
 ## Build Setup
 
 ``` bash
@@ -13,9 +19,4 @@ npm run dev
 
 # build for production with minification
 npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
 ```
-
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
