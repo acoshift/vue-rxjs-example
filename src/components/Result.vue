@@ -58,8 +58,12 @@ export default {
 
     return {
       data: Observable.combineLatest($q, $page, (q, page) => ({ q, page }))
-        .do(() => { this.err = '' })
-        .do(() => { this.loading = true })
+        .debounceTime(50) // prevent double request when query and page change at same time
+        .do(() => {
+          // reset error and show loading
+          this.err = ''
+          this.loading = true
+        })
         .do(({ q }) => { this.title = q })
         .flatMap(({ q, page }) => API.search(q, page)
           .catch((err) => {
